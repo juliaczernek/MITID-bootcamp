@@ -25,6 +25,7 @@ function setup() {
     video = createCapture(VIDEO);
     video.hide();
 
+    // start the bodypose detection
     // start the model detection
     // it relays on an input-output base
     bodyPose.detectStart(video, function(results){
@@ -42,6 +43,28 @@ function draw() {
 
     // make sure we detect at least one person
     if(poses.length>0){
+
+
+        
+                // target the nose position
+        let nose = poses[0].nose;
+        let noseDistance = dist(nose.x, nose.y);
+
+        
+        let leftSide = poses[0].left_ear;
+        let rightSide = poses[0].right_ear;
+        let topSide = poses[0].nose-20;
+        let downSide = poses[0].nose+20;
+
+        let recWidth = rightSide-leftSide;
+        let recHeight = downSide-topSide;
+
+
+        //USE THE QUAD
+        rect(nose.x, nose.y, recWidth, recHeight);
+        noStroke();
+        fill(142, 224, 0);
+
 
         let leftEye = poses[0].left_eye;
         let rightEye = poses[0].right_eye;
@@ -63,9 +86,6 @@ function draw() {
         ellipse((rightIris.x-4), rightIris.y, 20, 30, distance);
 
 
-        // target the nose position
-        let nose = poses[0].nose;
-        let noseDistance = dist(nose.x, nose.y);
         // console.log(nose);
         circle(nose.x, (nose.y+2), 20, noseDistance);
         noStroke();
@@ -88,7 +108,6 @@ function draw() {
             // rotateY(frameCount / 30);
             text('✨ SPANISH OR VANISH ✨', width/2, 20);
             textSize(35);
-
         }
         
     }
