@@ -65,6 +65,8 @@ function draw() {
         noStroke();
         fill(142, 224, 0);
 
+        quad()
+
 
         let leftEye = poses[0].left_eye;
         let rightEye = poses[0].right_eye;
